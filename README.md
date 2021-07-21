@@ -26,7 +26,7 @@ It is a meals app where you can search for any meal, displaying the results. You
 
 ### Links
 
-- Live Site URL: [Live Website](https://kurosakicoder.github.io/StopTimerWithThemeChanger/)
+- Live Site URL: [Live Website](https://kurosakicoder.github.io/MealsAppVanlliaJS/)
 
 ## My process
 
@@ -40,7 +40,7 @@ First, I designed the skeleton of the design using HTML and CSS. Then, I started
 
 ### What I learned
 
-I got to learn how to use local storage for saving items
+I got to learn how to use local storage for saving and removing items
 
 ```js
 async function getBookmarkData(url) {
