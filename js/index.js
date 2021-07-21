@@ -1,98 +1,90 @@
-let api_url =
-    "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+// Search API URL
+let api_url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+
+// Preserving the Original Search API URL    
 const ori_url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+
+// Meals Id URL to get bookmark data
 let bookmark_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+// Preserving the Original Meals Id URL
 const ori_bookmark_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+
+// Same URL as Meals Id URL to get details data
 let details_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+// Preserving the Original Details Id URL
 const ori_details_url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
+
+// Storing the original API length value
 let detailsLength = details_url.length
 let bookmarkLength = bookmark_url.length
 let length = api_url.length
+
+// Variables used in Local Storage
 let myObj_serial, myObj_deserial
 let val;
 
-function getInputValue() {
-    // Selecting the input element and get its value 
-    const input = document.getElementById('inputval').value
-
-    // Displaying the value
-    api_url += input
-
+// This function gives instant results for what we type in the input search element
+document.getElementById('inputval').addEventListener('input', function (e) {
+    api_url += this.value
     if (api_url.length > length) {
         getJSONData(api_url)
         api_url = ori_url
     }
-}
+})
 
-
-// Bookmark
+// Get Bookmark meal id
 function getBookmarkValue(val) {
-
     // Displaying the value
     bookmark_url += val
-
-    console.log(bookmark_url)
 
     if (bookmark_url.length > bookmarkLength) {
         getBookmarkData(bookmark_url)
         bookmark_url = ori_bookmark_url
     }
-
 }
 
-// Bookmark
+// Delete Bookmark meal id
 function removeBookmarkValue(val) {
-
     // Displaying the value
     bookmark_url += val
-
-    console.log(bookmark_url)
 
     if (bookmark_url.length > bookmarkLength) {
         removeBookmarkData(bookmark_url)
         bookmark_url = ori_bookmark_url
     }
-
 }
 
-
-// Details
+// Get Details meal id
 function getDetailsValue(val) {
-
     // Displaying the value
     details_url += val
-
-    console.log(details_url)
 
     if (details_url.length > detailsLength) {
         getDetailsData(details_url)
         details_url = ori_details_url
     }
-
 }
 
-
+// Get JSON response data from SEARCH URL 
 async function getJSONData(url) {
     const response = await fetch(url)
     var data = await response.json()
-    console.log(data)
     show(data)
 }
 
-// Bookmark
+// Get JSON response data for a single MEAL ID URL and 
+// store the key,value in localstorage
 async function getBookmarkData(url) {
     const response = await fetch(url)
     var data = await response.json()
     myObj_serial = JSON.stringify(data.meals)
-    console.log("myObj_serial", data)
     for (var i of data.meals) {
         localStorage.setItem(i.idMeal, myObj_serial)
     }
-    console.log(localStorage)
 }
 
-
-// Bookmark
+// Get JSON response data for a single MEAL ID URL and 
+// remove the key,value from localstorage
 async function removeBookmarkData(url) {
     const response = await fetch(url)
     var data = await response.json()
@@ -102,35 +94,22 @@ async function removeBookmarkData(url) {
     }
 }
 
-// Details
+// Get JSON response data for a single MEAL ID URL and 
+// store the key,value in localstorage
 async function getDetailsData(url) {
     const response = await fetch(url)
-    var data = await response.json()
+    let data = await response.json()
     myObj_serial = JSON.stringify(data.meals)
-    console.log("myObj_serial", data)
+
     for (var i of data.meals) {
-        localStorage.setItem(i.idMeal, myObj_serial)
+        let d = i.strMeal.split(' ').join('')
+        localStorage.setItem(d, myObj_serial)
     }
-    console.log(localStorage)
 }
-// async function getDetailsData(url) {
-//     const response = await fetch(url)
-//     let data = await response.json()
-//     console.log("detailsData", data.meals)
-//     myObj_serial = JSON.stringify(data.meals)
 
-//     for (var i of data.meals) {
-//         let d = i.strMeal.split(' ').join('')
-//         localStorage.setItem(d, myObj_serial)
-//     }
-//     console.log("detailsDatalocalstorage", localStorage)
-
-// }
-
-
+// Display the JSON SEARCH data results in web browser
 function show(data) {
     let display = ''
-    console.log(data.meals)
     if (data.meals != null) {
         for (let r of data.meals) {
             display +=
@@ -139,9 +118,11 @@ function show(data) {
                     <img style="border-radius: 100%;" src="${r.strMealThumb}" width="250" height="250">
                     <div>
                         <h3>${r.strMeal}</h3>
-                        <p>Instructions: ${r.strInstructions.slice(0, 150)}...<a href="${r.strYoutube}" target="_blank" class="button-link">Read More</a></p>
+                        <p>Instructions: ${r.strInstructions.slice(0, 150)}...</p>
                         
-                        <button id="bookmarid" type="button" onclick="getBookmarkValue(${r.idMeal});">Bookmark</button>
+                        <button class="bookmarkbtn" type="button" onclick="getBookmarkValue(${r.idMeal});">Bookmark</button>
+                        <button class="detailsbtn" type="button " onclick="getDetailsValue(${r.idMeal});">Get Details</button>
+                        <p><a class="normallink detailslink" href="./html/details.html" disabled >Go to Details</a>${" "}<a href="${r.strYoutube}" target="_blank" class="button-link">Watch</a></p>
                     </div>
                 </div> 
                 `
@@ -153,31 +134,13 @@ function show(data) {
     document.getElementById("showeverything").innerHTML = display
 }
 
-// <button type="button" onclick="getDetailsValue(${r.idMeal});">Details</button>
 
-// Bookmark
-let displaybookmark = ''
 
-Object.keys(localStorage).forEach(function (key) {
-    if (Number.isInteger(parseInt(key))) {
-        let r = JSON.parse(localStorage.getItem(key));
-        console.log(r)
-        for (let i of r) {
-            displaybookmark +=
-                `  
-            <div class="card"> 
-                <img style="border-radius: 100%;" src="${i.strMealThumb}" width="250" height="250">
-                <div>
-                    <h1>Name: ${i.strMeal}</h1>
-                    <p>Instructions: ${i.strInstructions.slice(0, 150)}...<a href="${i.strYoutube}" target="_blank" class="button-link">Read More</a></p>
-                    <button id="bookmarkremoveid" type="button" onclick="removeBookmarkValue(${i.idMeal});">Remove</button>
-                </div> 
-            </div> 
-        `
-        }
-    }
-})
-document.getElementById("showbookmarks").innerHTML = displaybookmark
+
+
+
+
+
 
 
 

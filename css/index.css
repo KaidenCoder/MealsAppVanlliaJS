@@ -1,0 +1,150 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.wholebody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.title {
+    text-align: center;
+    padding-top: 0.5em;
+}
+
+.nav2 {
+    padding-top: 2rem;
+}
+
+input[type=text] {
+    box-sizing: border-box;
+    padding: 0.4em 1em;
+}
+
+.semiheader {
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    padding: 0.6em 1.6em;
+    font-size: 1.2rem;
+    border-radius: 30px;
+}
+
+.normallink {
+    text-decoration: none;
+    padding-left: 1em;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+.detailslink,
+.button-link {
+    background: rgba(230, 228, 228, 0.6);
+    padding: 0.3em;
+    border-radius: 10px;
+}
+
+#showeverything {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    clear: both;
+    padding: 2%;
+    overflow: auto;
+    /* background: #185f96 */
+}
+
+
+.card {
+    width: 18rem;
+    text-align: justify;
+    padding: 2%;
+    margin: 2%;
+    background: rgba(244, 234, 234, 0.1);
+}
+
+.button-link {
+    text-decoration: none;
+}
+
+.bookmarkbtn,
+.bookmarkremovebtn {
+    background-color: red;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+}
+
+.detailsbtn {
+    background-color: #4CAF50;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+}
+
+#showbookmarks {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    clear: both;
+    padding: 2%;
+    overflow: auto;
+}
+
+.carddetails {
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+    padding: 2%;
+    margin: 2%;
+    background: rgba(244, 234, 234, 0.1);
+}
+
+.cardinnerdetails {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .carddetails {
+        display: flex;
+        flex-direction: column;
+        width: 25rem;
+        text-align: justify;
+        justify-content: center;
+        padding: 2%;
+        margin: 2%;
+        background: rgba(244, 234, 234, 0.1);
+    }
+
+    .cardinnerdetails {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1em;
+    }
+}
+
+#showmealitemdetails {
+    display: flex;
+    flex-direction: row;
+    padding: 2%;
+    margin: auto;
+}
