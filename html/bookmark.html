@@ -22,16 +22,6 @@
         <button class="semiheader">BOOKMARKS</button>
     </div>
     <p id="showbookmarks">Loading...</p>
-    <script>
-        let page = window.location.href
-        if (!window.location.href.includes("detail")) {
-            Object.keys(localStorage).forEach(function (key) {
-                if (!Number.isInteger(parseInt(key))) {
-                    localStorage.removeItem(key)
-                }
-            })
-        }
-    </script>
 
     <script src="../js/indexbookmark.js"></script>
     <script src="../js/index.js"></script>

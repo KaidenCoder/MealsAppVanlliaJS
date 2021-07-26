@@ -20,23 +20,7 @@
     </div>
     <hr>
 
-    <!-- Information regarding the Details button -->
-    <div class="info">
-        <span style="font-weight: bolder;">Note:</span> You have to click the "Get Details" button and then click "Go
-        to Details" to view the Details page.
-    </div>
-
-
     <div id="showeverything">Loading...</div>
-    <script>
-        if (!window.location.href.includes("detail")) {
-            Object.keys(localStorage).forEach(function (key) {
-                if (!Number.isInteger(parseInt(key))) {
-                    localStorage.removeItem(key)
-                }
-            })
-        }
-    </script>
 
     <!-- External JS file -->
     <script src="js/index.js"></script>
